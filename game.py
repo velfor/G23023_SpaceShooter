@@ -2,6 +2,7 @@ import pygame
 import sys
 from settings import *
 from player import Player
+from meteor_manager import MeteorManager
 
 class Game:
     def __init__(self):
@@ -10,6 +11,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.run = True
         self.player = Player()
+        self.meteor_manager = MeteorManager()
         
     def play(self):
         while self.run:
@@ -27,6 +29,7 @@ class Game:
 
     def update(self):
         self.player.update()
+        self.meteor_manager.update()
 
     def check_collisions(self):
         pass
@@ -34,6 +37,7 @@ class Game:
     def draw(self):
         self.screen.fill(BLACK)
         self.player.draw(self.screen)
+        self.meteor_manager.draw(self.screen)
         pygame.display.update()
 
 
