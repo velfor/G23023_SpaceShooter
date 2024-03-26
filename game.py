@@ -3,6 +3,7 @@ import sys
 from settings import *
 from player import Player
 from meteor_manager import MeteorManager
+from text_obj import Text_Obj
 
 class Game:
     def __init__(self):
@@ -12,6 +13,7 @@ class Game:
         self.run = True
         self.player = Player()
         self.meteor_manager = MeteorManager()
+        self.text_hp = Text_Obj(500, 10, self.player.get_hp())
         
     def play(self):
         while self.run:
@@ -30,6 +32,7 @@ class Game:
     def update(self):
         self.player.update()
         self.meteor_manager.update()
+        self.text_hp.update(self.player.get_hp())
 
     def check_collisions(self):
         pass
@@ -38,6 +41,7 @@ class Game:
         self.screen.fill(BLACK)
         self.player.draw(self.screen)
         self.meteor_manager.draw(self.screen)
+        self.text_hp.draw(self.screen)
         pygame.display.update()
 
 

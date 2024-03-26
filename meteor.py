@@ -11,6 +11,7 @@ class Meteor(pygame.sprite.Sprite):
         self.rect.y = y
         self.speedx = randint(-2,2)
         self.speedy = randint(2,6)
+        self.damage = 0
 
     def update(self):
         self.rect.x += self.speedx
@@ -18,4 +19,7 @@ class Meteor(pygame.sprite.Sprite):
 
     def draw(self,screen):
         screen.blit(self.image, self.rect)
+
+    def set_damage(self, damage):
+        self.damage = damage
         

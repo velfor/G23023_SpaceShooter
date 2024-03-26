@@ -15,6 +15,14 @@ class MeteorManager:
             x = randint(0, SC_WIDTH)
             y = randint(-SC_HEIGHT, 0)
             meteor = Meteor(x, y, "images\\meteors\\" + filename)
+            if filename.find("big") > 0:
+                meteor.set_damage(50)
+            elif filename.find("med") > 0:
+                meteor.set_damage(30)
+            elif filename.find("small") > 0:
+                meteor.set_damage(15)
+            elif filename.find("tiny") > 0:
+                meteor.set_damage(5)
             self.meteors.append(meteor)
 
     def update(self):

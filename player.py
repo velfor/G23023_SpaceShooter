@@ -8,9 +8,16 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = SC_WIDTH//2
         self.rect.bottom = SC_HEIGHT - 20
+        self.hp = PLAYER_MAX_HP
 
     def update(self):
         pass
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
+
+    def get_hp(self):
+        return self.hp
+
+    def reduce_hp(self, damage):
+        self.hp -= damage
