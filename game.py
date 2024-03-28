@@ -2,6 +2,7 @@ import pygame
 import sys
 from settings import *
 from player import Player
+from player import Laser
 from meteor_manager import MeteorManager
 from text_obj import Text_Obj
 
@@ -14,6 +15,8 @@ class Game:
         self.player = Player()
         self.meteor_manager = MeteorManager()
         self.text_hp = Text_Obj(500, 10, self.player.get_hp())
+        # временный объект лазера, удалить когда появится LaserManager!!!
+        self.laser = Laser(self.player.get_centerx(), self.player.get_top())
         
     def play(self):
         while self.run:
@@ -33,6 +36,7 @@ class Game:
         self.player.update()
         self.meteor_manager.update()
         self.text_hp.update(self.player.get_hp())
+        self.laser.update()
 
     def check_collisions(self):
         pass
@@ -42,6 +46,7 @@ class Game:
         self.player.draw(self.screen)
         self.meteor_manager.draw(self.screen)
         self.text_hp.draw(self.screen)
+        self.laser.draw(self.screen)
         pygame.display.update()
 
 
