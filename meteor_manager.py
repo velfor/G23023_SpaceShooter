@@ -12,9 +12,8 @@ class MeteorManager:
                         "meteorBrown_tiny1.png", "meteorBrown_tiny2.png"]
         self.meteors = []
         for filename in filename_list:
-            x = randint(0, SC_WIDTH)
-            y = randint(-SC_HEIGHT, 0)
-            meteor = Meteor(x, y, "images\\meteors\\" + filename)
+            meteor = Meteor("images\\meteors\\" + filename)
+            meteor.random_position()
             if filename.find("big") > 0:
                 meteor.set_damage(50)
             elif filename.find("med") > 0:
@@ -30,10 +29,7 @@ class MeteorManager:
             meteor.update()
             if meteor.rect.right <= 0 or meteor.rect.left >= SC_WIDTH \
             or meteor.rect.top >= SC_HEIGHT:
-                meteor.rect.x = randint(0, SC_WIDTH)
-                meteor.rect.y = randint(-SC_HEIGHT, 0)
-                meteor.speedx = randint(-2,2)
-                meteor.speedy = randint(2,6)
+                meteor.random_position()
 
     def draw(self, screen):
         for meteor in self.meteors:

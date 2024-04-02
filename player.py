@@ -9,12 +9,26 @@ class Player(pygame.sprite.Sprite):
         self.rect.centerx = SC_WIDTH//2
         self.rect.bottom = SC_HEIGHT - 20
         self.hp = PLAYER_MAX_HP
+        self.laser_sprites = []
 
     def update(self):
-        pass
+        keys = pygame.key.get_pressed()
+        #нажали пробел
+        if keys[pygame.K_SPACE]:
+            #создали новый лазер
+            laser = Laser(self.rect.centerx, self.rect.top)
+            #добавили в список лазеров
+            self.laser_sprites.append(laser)
+        #update всех лазеров
+        for laser in self.laser_sprites:
+            laser.update()
+            if laser.rect.bottom < 0:
+                self.laser_sprites.remove(laser)
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
+        for laser in self.laser_sprites:
+            screen.blit(laser.image, laser.rect)
 
     def get_hp(self):
         return self.hp
@@ -42,7 +56,6 @@ class Laser(pygame.sprite.Sprite):
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
-
 
 
 

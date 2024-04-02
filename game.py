@@ -15,9 +15,7 @@ class Game:
         self.player = Player()
         self.meteor_manager = MeteorManager()
         self.text_hp = Text_Obj(500, 10, self.player.get_hp())
-        # временный объект лазера, удалить когда появится LaserManager!!!
-        self.laser = Laser(self.player.get_centerx(), self.player.get_top())
-        
+                
     def play(self):
         while self.run:
             self.check_events()
@@ -36,18 +34,29 @@ class Game:
         self.player.update()
         self.meteor_manager.update()
         self.text_hp.update(self.player.get_hp())
-        self.laser.update()
+        if player.get_hp() <= 0:
+            # конец игры - обязательно показать заставку
+        
 
     def check_collisions(self):
-        pass
+        for meteor in self.meteor_manager.meteors:
+            if self.player.rect.colliderect(meteor.rect):
+                self.player.reduce_hp(meteor.get_damage())
+                meteor.random_position()
+        # для каждого метеора
+            # для каждой пули
+                # если пуля попала в метеор
+                    # прибавить игроку очки
 
     def draw(self):
         self.screen.fill(BLACK)
         self.player.draw(self.screen)
         self.meteor_manager.draw(self.screen)
         self.text_hp.draw(self.screen)
-        self.laser.draw(self.screen)
         pygame.display.update()
+
+    
+        
 
 
 
