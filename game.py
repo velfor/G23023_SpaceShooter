@@ -5,6 +5,7 @@ from player import Player
 from player import Laser
 from meteor_manager import MeteorManager
 from text_obj import Text_Obj
+from bg import Background
 
 class Game:
     def __init__(self):
@@ -15,6 +16,7 @@ class Game:
         self.player = Player()
         self.meteor_manager = MeteorManager()
         self.text_hp = Text_Obj(500, 10, self.player.get_hp())
+        self.game_over_bg = Background(GAME_OVER_FILENAME)
                 
     def play(self):
         while self.run:
@@ -23,6 +25,8 @@ class Game:
             self.check_collisions()
             self.draw()
             self.clock.tick(FPS)
+        pygame.quit()
+        sys.exit()
 
     def check_events(self):
         for i in pygame.event.get():
@@ -34,19 +38,14 @@ class Game:
         self.player.update()
         self.meteor_manager.update()
         self.text_hp.update(self.player.get_hp())
-        if player.get_hp() <= 0:
-            # конец игры - обязательно показать заставку
-        
-
+        if self.player.get_hp() <= 0:
+            self.game_over()
+ 
     def check_collisions(self):
         for meteor in self.meteor_manager.meteors:
             if self.player.rect.colliderect(meteor.rect):
                 self.player.reduce_hp(meteor.get_damage())
                 meteor.random_position()
-        # для каждого метеора
-            # для каждой пули
-                # если пуля попала в метеор
-                    # прибавить игроку очки
 
     def draw(self):
         self.screen.fill(BLACK)
@@ -55,7 +54,18 @@ class Game:
         self.text_hp.draw(self.screen)
         pygame.display.update()
 
-    
+    def game_over(self):
+        while True:
+            self.check_events()
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_RETURN]:
+                self.run = False
+                break
+            self.screen.fill(BLACK)
+            self.game_over_bg.draw(self.screen)
+            pygame.display.update()
+        
+           
         
 
 
