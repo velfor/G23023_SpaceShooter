@@ -10,16 +10,23 @@ class Player(pygame.sprite.Sprite):
         self.rect.bottom = SC_HEIGHT - 20
         self.hp = PLAYER_MAX_HP
         self.laser_sprites = []
+        self.fire_timer = pygame.time.get_ticks()
+        self.speed = 0
 
     def update(self):
         keys = pygame.key.get_pressed()
-        #нажали пробел
-        if keys[pygame.K_SPACE]:
-            #создали новый лазер
+        now = pygame.time.get_ticks()
+        if keys[pygame.K_LEFT]:
+            self.speed = -PLAYER_SPEED
+        if keys[pygame.K_RIGHT]:
+            self.speed = PLAYER_SPEED
+        self.rect.x += self.speed
+        self.speed = 0
+        
+        if keys[pygame.K_SPACE] and now - self.fire_timer > FIRE_DELAY:
+            self.fire_timer = now
             laser = Laser(self.rect.centerx, self.rect.top)
-            #добавили в список лазеров
             self.laser_sprites.append(laser)
-        #update всех лазеров
         for laser in self.laser_sprites:
             laser.update()
             if laser.rect.bottom < 0:

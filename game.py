@@ -42,11 +42,19 @@ class Game:
             self.game_over()
  
     def check_collisions(self):
+        # игрок-метеоры
         for meteor in self.meteor_manager.meteors:
             if self.player.rect.colliderect(meteor.rect):
                 self.player.reduce_hp(meteor.get_damage())
                 meteor.random_position()
-
+        # пули - метеоры
+        for meteor in self.meteor_manager.meteors:
+            for laser in self.player.laser_sprites:
+                if meteor.rect.colliderect(laser.rect):
+                    meteor.random_position()
+                    self.player.laser_sprites.remove(laser)
+                    
+                    
     def draw(self):
         self.screen.fill(BLACK)
         self.player.draw(self.screen)
