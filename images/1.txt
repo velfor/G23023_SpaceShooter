@@ -1,0 +1,10 @@
+1.txt
+bolt_gold.png
+game_over.png
+laser.png
+meteors/
+pill_yellow.png
+player.png
+shield_gold.png
+star_gold.png
+Новый текстовый документ.txt

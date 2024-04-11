@@ -14,3 +14,5 @@ LASER_SPEEDY = 8
 GAME_OVER_FILENAME = "images\\game_over.png"
 
 FIRE_DELAY = 200
+
+BONUS_SPEED = 1

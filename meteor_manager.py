@@ -16,12 +16,16 @@ class MeteorManager:
             meteor.random_position()
             if filename.find("big") > 0:
                 meteor.set_damage(50)
+                meteor.set_score(5)
             elif filename.find("med") > 0:
                 meteor.set_damage(30)
+                meteor.set_score(15)
             elif filename.find("small") > 0:
                 meteor.set_damage(15)
+                meteor.set_score(30)
             elif filename.find("tiny") > 0:
                 meteor.set_damage(5)
+                meteor.set_score(50)
             self.meteors.append(meteor)
 
     def update(self):

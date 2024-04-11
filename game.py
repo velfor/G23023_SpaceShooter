@@ -6,6 +6,8 @@ from player import Laser
 from meteor_manager import MeteorManager
 from text_obj import Text_Obj
 from bg import Background
+from bonus import Bonus
+from bonus_manager import BonusManager
 
 class Game:
     def __init__(self):
@@ -17,6 +19,9 @@ class Game:
         self.meteor_manager = MeteorManager()
         self.text_hp = Text_Obj(500, 10, self.player.get_hp())
         self.game_over_bg = Background(GAME_OVER_FILENAME)
+        self.score = 0
+        self.text_score = Text_Obj(10, 10, self.score)
+        self.bonus_manager = BonusManager()
                 
     def play(self):
         while self.run:
@@ -38,6 +43,8 @@ class Game:
         self.player.update()
         self.meteor_manager.update()
         self.text_hp.update(self.player.get_hp())
+        self.text_score.update(self.score)
+        self.bonus_manager.update()
         if self.player.get_hp() <= 0:
             self.game_over()
  
@@ -51,15 +58,18 @@ class Game:
         for meteor in self.meteor_manager.meteors:
             for laser in self.player.laser_sprites:
                 if meteor.rect.colliderect(laser.rect):
+                    self.bonus_manager.generate_bonus(meteor)
                     meteor.random_position()
                     self.player.laser_sprites.remove(laser)
-                    
+                    self.score += meteor.get_score()
                     
     def draw(self):
         self.screen.fill(BLACK)
         self.player.draw(self.screen)
         self.meteor_manager.draw(self.screen)
         self.text_hp.draw(self.screen)
+        self.text_score.draw(self.screen)
+        self.bonus_manager.draw(self.screen)
         pygame.display.update()
 
     def game_over(self):
