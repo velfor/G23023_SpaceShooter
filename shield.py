@@ -8,14 +8,14 @@ class Shield(pygame.sprite.Sprite):
         self.image = pygame.image.load(SHIELD_FILENAME).convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.center = SHIELD_INACTIVE_POS
-        self.isActive = False
+        self.is_active = False
         self.shield_timer = pygame.time.get_ticks()
         
     def update(self, center):
         now =  pygame.time.get_ticks()
         if now - self.shield_timer > SHIELD_RUNTIME:
-            self.isActive = False
-        if self.isActive:
+            self.is_active = False
+        if self.is_active:
             self.rect.center = center
         else:
             self.rect.center = SHIELD_INACTIVE_POS
@@ -23,10 +23,8 @@ class Shield(pygame.sprite.Sprite):
     def draw(self,screen):
         screen.blit(self.image, self.rect)
 
-    def setActive(self):
-        self.isActive = True
-
-    
+    def set_active(self):
+        self.is_active = True
 
     def get_center(self):
         return self.rect.center    

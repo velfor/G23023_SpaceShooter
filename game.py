@@ -8,6 +8,7 @@ from text_obj import Text_Obj
 from bg import Background
 from bonus import Bonus
 from bonus_manager import BonusManager
+from shield import Shield
 
 class Game:
     def __init__(self):
@@ -22,6 +23,7 @@ class Game:
         self.score = 0
         self.text_score = Text_Obj(10, 10, self.score)
         self.bonus_manager = BonusManager()
+        self.shield = Shield()
                 
     def play(self):
         while self.run:
@@ -45,6 +47,7 @@ class Game:
         self.text_hp.update(self.player.get_hp())
         self.text_score.update(self.score)
         self.bonus_manager.update()
+        self.shield.update(self.player.get_center())
         if self.player.get_hp() <= 0:
             self.game_over()
  
@@ -62,7 +65,16 @@ class Game:
                     meteor.random_position()
                     self.player.laser_sprites.remove(laser)
                     self.score += meteor.get_score()
-                    
+        # игрок-бонусы
+        for bonus in self.bonus_manager.bonuses:
+            if self.player.rect.colliderect(bonus.rect):
+                if bonus.get_type() == "shield":
+                    shield.set_active()
+        # щит - метеоры
+        for meteor in self.meteor_manager.meteors:
+            if self.shield.rect.colliderect(meteor.rect):
+                meteor.random_position()
+                
     def draw(self):
         self.screen.fill(BLACK)
         self.player.draw(self.screen)
@@ -70,6 +82,7 @@ class Game:
         self.text_hp.draw(self.screen)
         self.text_score.draw(self.screen)
         self.bonus_manager.draw(self.screen)
+        self.shield.draw(self.screen)
         pygame.display.update()
 
     def game_over(self):

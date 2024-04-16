@@ -9,9 +9,16 @@ class Bonus(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = center
         self.speed = BONUS_SPEED
+        self.type = ""
 
     def update(self):
         self.rect.y += self.speed
 
     def draw(self,screen):
         screen.blit(self.image, self.rect)
+
+    def set_type(self, sort):
+        self.type = sort
+
+    def get_type(self):
+        return self.type

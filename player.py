@@ -46,6 +46,9 @@ class Player(pygame.sprite.Sprite):
     def get_centerx(self):
         return self.rect.centerx
 
+    def get_center(self):
+        return self.rect.center
+
     def get_top(self):
         return self.rect.top
 

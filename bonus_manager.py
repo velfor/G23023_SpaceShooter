@@ -14,7 +14,15 @@ class BonusManager:
         chance = randint(1, 100)
         if chance <= 5:
             filename = choice(self.filename_list)
-            bonus = Bonus(meteor.get_center(),filename)
+            bonus = Bonus(meteor.get_center(), filename)
+            if filename.find("bolt"):
+                bonus.set_type("bolt")
+            elif filename.find("pill"):
+                bonus.set_type("pill")
+            elif filename.find("shield"):
+                bonus.set_type("shield")
+            elif filename.find("star"):
+                bonus.set_type("star")
             self.bonuses.append(bonus)
             
     def update(self):
