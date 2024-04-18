@@ -16,6 +16,7 @@ GAME_OVER_FILENAME = "images\\game_over.png"
 FIRE_DELAY = 200
 
 BONUS_SPEED = 1
+BONUC_CHANCE = 50
 
 SHIELD_FILENAME = "images\\shield.png"
 SHIELD_RUNTIME = 10000

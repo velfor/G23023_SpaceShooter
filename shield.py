@@ -15,6 +15,7 @@ class Shield(pygame.sprite.Sprite):
         now =  pygame.time.get_ticks()
         if now - self.shield_timer > SHIELD_RUNTIME:
             self.is_active = False
+            self.shield_timer = now
         if self.is_active:
             self.rect.center = center
         else:

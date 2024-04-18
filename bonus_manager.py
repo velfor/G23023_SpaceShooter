@@ -12,16 +12,17 @@ class BonusManager:
         
     def generate_bonus(self, meteor):
         chance = randint(1, 100)
-        if chance <= 5:
+        if chance <= BONUC_CHANCE:
             filename = choice(self.filename_list)
             bonus = Bonus(meteor.get_center(), filename)
-            if filename.find("bolt"):
+            if filename.startswith("bolt"):
                 bonus.set_type("bolt")
-            elif filename.find("pill"):
+            elif filename.startswith("pill"):
                 bonus.set_type("pill")
-            elif filename.find("shield"):
+            elif filename.startswith("shield"):
                 bonus.set_type("shield")
-            elif filename.find("star"):
+                print(bonus.get_type())
+            elif filename.startswith("star"):
                 bonus.set_type("star")
             self.bonuses.append(bonus)
             

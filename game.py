@@ -69,7 +69,8 @@ class Game:
         for bonus in self.bonus_manager.bonuses:
             if self.player.rect.colliderect(bonus.rect):
                 if bonus.get_type() == "shield":
-                    shield.set_active()
+                    self.shield.set_active()
+                    self.bonus_manager.bonuses.remove(bonus)
         # щит - метеоры
         for meteor in self.meteor_manager.meteors:
             if self.shield.rect.colliderect(meteor.rect):
