@@ -9,6 +9,8 @@ from bg import Background
 from bonus import Bonus
 from bonus_manager import BonusManager
 from shield import Shield
+from explosion import Explosion
+from explosion_manager import ExplosionManager
 
 class Game:
     def __init__(self):
@@ -24,6 +26,7 @@ class Game:
         self.text_score = Text_Obj(10, 10, self.score)
         self.bonus_manager = BonusManager()
         self.shield = Shield()
+        self.explosion_manager = ExplosionManager()
                 
     def play(self):
         while self.run:
@@ -48,6 +51,7 @@ class Game:
         self.text_score.update(self.score)
         self.bonus_manager.update()
         self.shield.update(self.player.get_center())
+        self.explosion_manager.update()
         if self.player.get_hp() == 0:
             self.game_over()
  
@@ -62,6 +66,7 @@ class Game:
             for laser in self.player.laser_sprites:
                 if meteor.rect.colliderect(laser.rect):
                     self.bonus_manager.generate_bonus(meteor)
+                    self.explosion_manager.generate_explosion(meteor)
                     meteor.random_position()
                     self.player.laser_sprites.remove(laser)
                     self.score += meteor.get_score()
@@ -88,6 +93,7 @@ class Game:
         self.text_score.draw(self.screen)
         self.bonus_manager.draw(self.screen)
         self.shield.draw(self.screen)
+        self.explosion_manager.draw(self.screen)
         pygame.display.update()
 
     def game_over(self):

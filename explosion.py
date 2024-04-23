@@ -2,19 +2,15 @@ import pygame
 from settings import *
 
 class Explosion(pygame.sprite.Sprite):
-    def __init__(self, center):
+    def __init__(self, center, images):
         pygame.sprite.Sprite.__init__(self)
         self.center = center
-        images=[]
-        for i in range(9):
-            images.append(pygame.image.
-                load(EXPLOSION_FILENAME_PREFIX + str(i) +
-                     EXPLOSION_FILENAME_POSTFIX).convert_alpha())
-        self.image = images[0]
+        self.images = images
+        self.image = self.images[0]
         self.rect = self.image.get_rect()
         self.rect.center = self.center
         self.frame = 0
-        self.delay = 100
+        self.delay = 50
         self.timer = pygame.time.get_ticks()
         self.is_active = True
 
@@ -23,7 +19,7 @@ class Explosion(pygame.sprite.Sprite):
         if now - self.timer > self.delay:
             self.frame += 1
             if self.frame < 9:
-                self.image = images[self.frame]
+                self.image = self.images[self.frame]
                 self.rect = self.image.get_rect()
                 self.rect.center = self.center
                 self.timer = now
@@ -34,7 +30,8 @@ class Explosion(pygame.sprite.Sprite):
         if self.is_active:
             screen.blit(self.image, self.rect)
 
-
+    def get_inactive(self):
+        return not self.is_active
 
 
             
