@@ -21,7 +21,6 @@ class BonusManager:
                 bonus.set_type("pill")
             elif filename.startswith("shield"):
                 bonus.set_type("shield")
-                print(bonus.get_type())
             elif filename.startswith("star"):
                 bonus.set_type("star")
             self.bonuses.append(bonus)

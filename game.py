@@ -48,7 +48,7 @@ class Game:
         self.text_score.update(self.score)
         self.bonus_manager.update()
         self.shield.update(self.player.get_center())
-        if self.player.get_hp() <= 0:
+        if self.player.get_hp() == 0:
             self.game_over()
  
     def check_collisions(self):
@@ -70,7 +70,11 @@ class Game:
             if self.player.rect.colliderect(bonus.rect):
                 if bonus.get_type() == "shield":
                     self.shield.set_active()
-                    self.bonus_manager.bonuses.remove(bonus)
+                if bonus.get_type() == "pill":
+                   self.player.add_hp(PILL_HP)
+                if bonus.get_type() == "bolt":
+                    self.player.set_three_lasers_active()
+                self.bonus_manager.bonuses.remove(bonus)
         # щит - метеоры
         for meteor in self.meteor_manager.meteors:
             if self.shield.rect.colliderect(meteor.rect):
