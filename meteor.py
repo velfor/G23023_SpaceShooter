@@ -9,7 +9,9 @@ class Meteor(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.damage = 0
         self.score = 0
+        self.anim_size = ""
         self.random_position()
+        
 
     def update(self):
         self.rect.x += self.speedx
@@ -37,4 +39,21 @@ class Meteor(pygame.sprite.Sprite):
         self.speedy = randint(2,6)
 
     def get_center(self):
-        return self.rect.center    
+        return self.rect.center
+
+    def set_anim_size(self, size):
+        self.anim_size = size
+
+    def get_anim_size(self):
+        return self.anim_size
+
+
+
+
+
+    
+
+
+
+
+    
